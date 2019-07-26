@@ -1,5 +1,5 @@
 {
-    "name": "Destiny/Jeekman",
+    "name": "destiny/jeekman",
     "description": "The SDK for yunqi",
     "authors": [{
         "name": "Destiny",
@@ -11,7 +11,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Destiny\\Jeekman\\": "src/"
+            "destiny\\jeekman\\": "src/"
         }
     }
 }
