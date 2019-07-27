@@ -1,17 +1,19 @@
 <?php
-namespace Destiny\Jeekman;
+namespace yunqi;
 
 class Pay
 {
-    public $pubKey; // 加密param 系统公钥
-    public $praKey; // 加密sign 商户私钥
+    public $api; // 请求网关
+    public $sysPubKey; // 系统公钥
+    public $mercPriKey; // 商户私钥
     public $data; // 数据
 
-    public function __construct($pubKey,$praKey,$data)
+    public function __construct($api,$sysPubKey,$mercPriKey,$data)
     {
-        $this->pubKey = $pubKey;
-        $this->praKey = $praKey;
-        $this->data   = $data;
+        $this->api        = $api;
+        $this->sysPubKey  = $sysPubKey;
+        $this->mercPriKey = $mercPriKey;
+        $this->data       = $data;
     }
 
     /**
@@ -19,15 +21,12 @@ class Pay
      * @return void
      * @author destiny
      */
-    protected function order()
+    public function order()
     {
-        // $key = openssl_pkey_get_public($this->pubKey);
-        // if (!$key) 
-        //     die('公钥不可用');
-        // }
-        // // $param = $this->praKey
-        // // $this->praKey
-        
-        // // $this->data
+        $sysPubKey       = Functions::getKey($this->sysPubKey,1);
+        $mercPriKey      = Functions::getKey($this->mercPriKey,0);
+        $params['param'] = Functions::getEncrypt($sysPubKey,$this->data);
+        $params['sign']  = Functions::getSign($mercPriKey,$this->data);
+        return Functions::request($this->api,$params);
     }
 }
