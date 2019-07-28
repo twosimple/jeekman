@@ -29,7 +29,7 @@ class Pay
      */
     public function order()
     {
-        $params['param'] = RSA::Encrypt($this->sysPubKey,$this->data,1);
+        $params['param'] = RSA::Encrypt($this->data,$this->sysPubKey,1);
         $params['sign']  = RSA::Sign($this->mercPriKey,$this->data);
         return Funcs::post($this->api,$params);
     }
