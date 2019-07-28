@@ -1,5 +1,5 @@
 <?php
-namespace Destiny\Jeekman;
+namespace yunqi\pay;
 
 class Notify
 {

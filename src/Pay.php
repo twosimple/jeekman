@@ -1,5 +1,5 @@
 <?php
-namespace yunqi;
+namespace yunqi\pay;
 
 class Pay
 {
