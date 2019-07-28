@@ -1,6 +1,12 @@
 <?php
 namespace yunqi\pay;
 
+use yunqi\helper\encrypts\RSA;
+use yunqi\helper\Funcs;
+/**
+ * 下单处理
+ * @author destiny
+ */
 class Pay
 {
     public $api; // 请求网关
@@ -23,10 +29,8 @@ class Pay
      */
     public function order()
     {
-        $sysPubKey       = Functions::getKey($this->sysPubKey,1);
-        $mercPriKey      = Functions::getKey($this->mercPriKey,0);
-        $params['param'] = Functions::getEncrypt($sysPubKey,$this->data);
-        $params['sign']  = Functions::getSign($mercPriKey,$this->data);
-        return Functions::request($this->api,$params);
+        $params['param'] = RSA::Encrypt($this->sysPubKey,$this->data,1);
+        $params['sign']  = RSA::Sign($this->mercPriKey,$this->data);
+        return Funcs::post($this->api,$params);
     }
 }
